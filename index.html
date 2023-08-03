@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="particles.js-master/particles.js"></script>
+    <!-- Document Title -->
+    <title>Your Virtual Placebo</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="icon.png">
+</head>
+<body style="overflow-x: hidden; height: 100vh; overflow-y: hidden;">
+
+    <div style="top: unset; position: fixed;" class="bird-container-five bird-container--five">
+        <div class="bird bird--five"></div>
+    </div>
+    <div style="top: unset; position: fixed;" class="bird-container-one bird-container--one">
+        <div class="bird bird--one"></div>
+    </div>
+    
+    <div style="top: unset; position: fixed;" class="bird-container-two bird-container--two">
+        <div class="bird bird--two"></div>
+    </div>
+    
+    <div style="top: unset; position: fixed;" class="bird-container-three bird-container--three">
+        <div class="bird bird--three"></div>
+    </div>
+    
+    <div style="top: unset; position: fixed;" class="bird-container-four bird-container--four">
+        <div class="bird bird--four"></div>
+    </div>
+<div class="container d-flex flex-column justify-content-center w-100 h-100">
+    
+	<div class="container justify-content-center text-center text-white">
+        <div id="loader">
+            <div id="progress"></div>
+            <span id="percent"></span>
+            <span id="">Resolving your problems in process</span>
+          </div>
+          <div id="success-message">
+            <h1 id="text-success" class="section-title fw-light text-white m-0 text-center">Your problems have been solved, have a good day</h1></div>
+		<h1 class="section-title fw-light text-white m-0">Take a break and solve your problems</h1>
+        <div class="frame">
+            <button id="btn" class="custom-btn btn-6"><span>Reduce my problems</span></button>
+            <script>
+                const btn = document.getElementById('btn');
+                const loader = document.getElementById('loader');
+                const progress = document.getElementById('progress');
+                const percent = document.getElementById('percent');
+                const successMessage = document.getElementById('success-message');
+                const textsuccess = document.getElementById("text-success")
+                const cookieValue = getCookie('result');
+                if (cookieValue !== '') {
+                    textsuccess.textContent = cookieValue;
+                }else{
+                    const successMessages = ['Your problems have been solved, have a good day', 'Failure, please try resetting your perception of the reality.', 'Everything is ok now, be happy !'];
+
+                    const randomIndex = Math.floor(Math.random() * successMessages.length);
+  const message = successMessages[randomIndex];
+  setCookie('result', message, 365);
+  textsuccess.textContent = message;
+                }
+                function getCookie(name) {
+  const cookieName = `${name}=`;
+  const decodedCookie = decodeURIComponent(document.cookie);
+  const cookieArray = decodedCookie.split(';');
+  for (let i = 0; i < cookieArray.length; i++) {
+    let cookie = cookieArray[i];
+    while (cookie.charAt(0) == ' ') {
+      cookie = cookie.substring(1);
+    }
+    if (cookie.indexOf(cookieName) == 0) {
+      return cookie.substring(cookieName.length, cookie.length);
+    }
+  }
+  return '';
+}
+function setCookie(name, value, days) {
+  const expires = new Date();
+  expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+  document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+}
+                btn.addEventListener('click', () => {
+                  loader.style.display = 'block';
+                  let width = 0;
+                  const intervalId = setInterval(() => {
+                    if (width >= 80) {
+                      clearInterval(intervalId);
+                      loader.style.display = 'none';
+                      successMessage.style.display = 'block';
+                      document.addEventListener('click', () => {
+  successMessage.style.display = 'none';
+});
+                    } else {
+                      width++;
+                      progress.style.width = `${width}%`;
+                      percent.textContent = `${width/0.8}%`;
+                    }
+                  }, 80);
+                });
+                </script>
+
+<div class="quote-container">
+
+</div>
+<script>
+   const quotes = [{
+      "author": "Steve Jobs",
+      "quote": "The only way to do great work is to love what you do."
+    },
+    {
+      "author": "Martin Luther King Jr.",
+      "quote": "In the end, we will remember not the words of our enemies, but the silence of our friends."
+    },
+    {
+      "author": "Eleanor Roosevelt",
+      "quote": "The future belongs to those who believe in the beauty of their dreams."
+    },
+    {
+      "author": "Franklin D. Roosevelt",
+      "quote": "The only limit to our realization of tomorrow will be our doubts of today."
+    },
+    {
+      "author": "Peter Drucker",
+      "quote": "The best way to predict the future is to create it."
+    },
+    {
+      "author": "Winston Churchill",
+      "quote": "Success is not final, failure is not fatal: It is the courage to continue that counts."
+    },
+    {
+      "author": "Theodore Roosevelt",
+      "quote": "Believe you can and you're halfway there."
+    },
+    {
+      "author": "Ralph Waldo Emerson",
+      "quote": "The only person you are destined to become is the person you decide to be."
+    },
+    {
+      "author": "Albert Camus",
+      "quote": "In the midst of winter, I found there was, within me, an invincible summer."
+    },
+    {
+      "author": "John Lennon",
+      "quote": "Life is what happens when you're busy making other plans."
+    }]
+function getRandomDirection() {
+      return Math.random() < 0.5 ? 1 : -1; // Retourne 1 ou -1 de manière aléatoire
+    }
+
+    function getRandomPercentage(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function displayRandomQuote() {
+      const initial = document.getElementById('citation');
+      if (initial){
+        initial.remove();
+      }
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      const randomQuote = quotes[randomIndex];
+
+      const quoteContainer = document.createElement('div');
+      quoteContainer.id = 'citation';
+      quoteContainer.classList.add('text-container');
+
+      const quoteElement = document.createElement('div');
+      quoteElement.classList.add('quote');
+      quoteElement.textContent = randomQuote.quote;
+
+      const authorElement = document.createElement('div');
+      authorElement.classList.add('author');
+      authorElement.textContent = randomQuote.author;
+
+      quoteContainer.appendChild(quoteElement);
+      quoteContainer.appendChild(authorElement);
+
+      const container = document.querySelector('.quote-container');
+      container.innerHTML = '';
+      container.appendChild(quoteContainer);
+
+      // Animation direction
+      const direction = getRandomDirection();
+
+      // Gestion des animations
+      const animationDuration = 30; // Durée de l'animation en secondes
+      if (direction == 1){
+        quoteContainer.style.animation = `slide-up ${animationDuration}s linear`;
+      }else{
+        quoteContainer.style.animation = `slide-down ${animationDuration}s linear`;
+      }
+    }
+
+    displayRandomQuote();
+    setInterval(displayRandomQuote, 20000); // Affiche une nouvelle citation toutes les 30 secondes
+
+</script>
+        
+    </div>
+    <div class= "donation">
+      <a href="https://www.paypal.com/paypalme/wlwsch" class="prio">
+        ✧˚₊‧୭⁺‿︵ Make a donation ‿︵⁺୭‧₊˚✧
+      </a>
+      </div>
+	</div>
+  <div class="container-m">
+    <div class='mountain'></div>
+    <div class='mountain'></div>
+    <div class='mountain'></div>
+    <div class='mountain'></div>
+    <div class='mountain'></div>
+    <div class='mountain'></div>
+    <div class='mountain'></div>
+    <div class='mountain'></div>
+    <div class='mountain'></div>
+    <div class='mountain'></div>
+    <div class='mountain'></div>
+    <div class='mountain'></div>
+    <div class='mountain'></div>
+    <div class='mountain'></div>
+    <div class='mountain'></div>
+    <div class='mountain'></div>
+    <div class='mountain'></div>
+    <div class='mountain'></div>
+    <div class='mountain'></div>
+  </div>
+</div>
+</body>
